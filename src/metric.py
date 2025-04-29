@@ -37,14 +37,10 @@ class MyAccuracy(Metric):
         self.add_state('correct', default=torch.tensor(0), dist_reduce_fx='sum')
 
     def update(self, preds, target):
-        # [TODO] The preds (B x C tensor), so take argmax to get index with highest confidence
         preds   = torch.argmax(preds, dim=1)
         target  = target.view(-1)
         preds   = preds.view_as(target)
-        # [TODO] check if preds and target have equal shape
         correct = torch.sum(preds==target)
-        # [TODO] Cound the number of correct prediction
-        # Accumulate to self.correct
         self.correct += correct
 
         # Count the number of elements in target
