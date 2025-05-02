@@ -14,7 +14,7 @@ import torch
 from src.dataset import TinyImageNetDatasetModule
 from src.network import SimpleClassifier
 import src.config as cfg
-
+from src.network import MyNetwork, MyNetwork2, MyNetwork3, MyNetwork4, MyNetwork5, MyNetwork6
 torch.set_float32_matmul_precision('medium')
 
 
@@ -24,14 +24,25 @@ if __name__ == "__main__":
         type = str,
         help = 'Model checkpoint file name')
     args = args.parse_args()
-
+    model_name_arg = args.ckpt_file.split('/')[-1].split('.')[0]
+    if model_name_arg == 'mynetwork_1':
+        model_name_arg = 'MyNetwork'
+    elif model_name_arg == 'mynetwork_2':
+        model_name_arg = 'MyNetwork2'
+    elif model_name_arg == 'mynetwork_3':
+        model_name_arg = 'MyNetwork3'
+    elif model_name_arg == 'mynetwork_4':
+        model_name_arg = 'MyNetwork4'
+    elif model_name_arg == 'mynetwork_5':
+        model_name_arg = 'MyNetwork5'
+  
     model = SimpleClassifier(
-        model_name = cfg.MODEL_NAME,
+        model_name = model_name_arg,
         num_classes = cfg.NUM_CLASSES,
     )
 
     datamodule = TinyImageNetDatasetModule(
-        batch_size = 1,
+        batch_size = 512,
     )
 
     trainer = Trainer(

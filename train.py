@@ -17,7 +17,9 @@ import wandb
 torch.set_float32_matmul_precision('medium')
 
 TRAIN_MODEL_LIST = [
-    # "maxvit_t",
+    "efficientnet_b1",
+    "efficientnet_b2",
+    "efficientnet_b3"
 ]
 
 if __name__ == "__main__":
